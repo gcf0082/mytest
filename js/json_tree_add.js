@@ -1,15 +1,20 @@
-function insertNodeIntoTree(node) {
-    node.abc = '111';
+function insertNodeIntoTree(node, newNode) {
+    console.log('xx 1');
+    newNode.newid = node.id;
+    
     if (node.children != null) {
+        newNode.children = new Array(node.children.length);
+        console.log(newNode);
         for (let i = 0; i < node.children.length; i++) {
-            insertNodeIntoTree(node.children[i]);
+            newNode.children[i] = {}
+            insertNodeIntoTree(node.children[i], newNode.children[i]);
         }
     }
 
 }
 
 
-var myjson = {
+var myjson = `{
     "id": "123",
     "children":[
         {
@@ -27,7 +32,8 @@ var myjson = {
             ]
         }
     ]
-}
+}`
 
-insertNodeIntoTree(myjson)
-console.log(JSON.stringify(myjson))
+newNode={}
+insertNodeIntoTree(JSON.parse(myjson), newNode)
+console.log(JSON.stringify(newNode, null , ' '))
