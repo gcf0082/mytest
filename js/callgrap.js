@@ -1,8 +1,9 @@
 let id = 0
 function insertNodeIntoTree(node, newNode) {   
     if (node.hasOwnProperty('callee')) {
-        newNode.title = node.callee.fullMethod;
-        newNode.lineNum = node.lineNum;
+        newNode.data = {};
+        newNode.data.fullMethod = node.callee.fullMethod;
+        newNode.data.lineNum = node.lineNum;
         if (node.callee.calleeMethods != null) {
             newNode.children = new Array(node.callee.calleeMethods.length);
             for (let i = 0; i < node.callee.calleeMethods.length; i++) {
@@ -11,7 +12,8 @@ function insertNodeIntoTree(node, newNode) {
             }
         }        
     } else {
-        newNode.title = node.fullMethod;
+        newNode.data = {};
+        newNode.data.title = node.fullMethod;
     }
     id++;
     newNode.key = id;
