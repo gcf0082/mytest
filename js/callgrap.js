@@ -1,11 +1,26 @@
-function insertNodeIntoTree(node, newNode) {
-    newNode.title = node.fullMethod;
+let id = 0
+function insertNodeIntoTree(node, newNode) {   
+    if (node.hasOwnProperty('callee')) {
+        newNode.title = node.callee.fullMethod;
+        newNode.lineNum = node.lineNum;
+        if (node.callee.calleeMethods != null) {
+            newNode.children = new Array(node.callee.calleeMethods.length);
+            for (let i = 0; i < node.callee.calleeMethods.length; i++) {
+                newNode.children[i] = {}
+                insertNodeIntoTree(node.callee.calleeMethods[i], newNode.children[i]);
+            }
+        }        
+    } else {
+        newNode.title = node.fullMethod;
+    }
+    id++;
+    newNode.key = id;
     
     if (node.calleeMethods != null) {
         newNode.children = new Array(node.calleeMethods.length);
         for (let i = 0; i < node.calleeMethods.length; i++) {
             newNode.children[i] = {}
-            insertNodeIntoTree(node.calleeMethods[i].callee, newNode.children[i]);
+            insertNodeIntoTree(node.calleeMethods[i], newNode.children[i]);
         }
     }
 }
