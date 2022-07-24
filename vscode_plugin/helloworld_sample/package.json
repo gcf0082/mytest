@@ -25,12 +25,12 @@
 		],
 		"viewsContainers": {
 			"activitybar": [
-				{					
+				{
 					"id": "code-analyze",
 					"title": "代码分析",
 					"icon": "media/dep.svg"
 				}
-			]			
+			]
 		},
 		"views": {
 			"code-analyze": [
@@ -38,6 +38,10 @@
 					"type": "webview",
 					"id": "external-callee",
 					"name": "调用外部函数"
+				},
+				{
+					"id": "external-callee2",
+					"name": "调用外部函数2"
 				}
 			]
 		}
