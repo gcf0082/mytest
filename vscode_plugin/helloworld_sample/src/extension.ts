@@ -30,6 +30,22 @@ export function activate(context: vscode.ExtensionContext) {
 
 		// Display a message box to the user
 		vscode.window.showInformationMessage('Hello World!');
+
+		var pos1 = new vscode.Position(9,4);
+		var openPath = vscode.Uri.file('C:\\temp\\bad-eval.sarif');
+		vscode.workspace.openTextDocument(openPath).then(doc => 
+		{
+			vscode.window.showTextDocument(doc).then(editor => 
+			{
+				// Line added - by having a selection at the same position twice, the cursor jumps there
+				editor.selections = [new vscode.Selection(pos1,pos1)]; 
+		
+				// And the visible range jumps there too
+				var range = new vscode.Range(pos1, pos1);
+				editor.revealRange(range);
+			});
+		});
+
 	});
 
 	context.subscriptions.push(
