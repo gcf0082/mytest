@@ -70,6 +70,7 @@ class TreeDataProvider implements vscode.TreeDataProvider<TreeItem> {
                     insertNodeIntoTree(node.children[i], newNode.children[i]);
                 }
             }
+			newNode.build();
         }
 
         var newNode = new TreeItem('');
@@ -108,13 +109,14 @@ class TreeItem extends vscode.TreeItem {
 	data: any;
 
 	constructor(label: string, children?: TreeItem[]) {
-		super(
-			label,
-			children === undefined ? vscode.TreeItemCollapsibleState.None :
-				vscode.TreeItemCollapsibleState.Expanded);
-		//this.children = children;
+		super(label);
 	}
 
+	build() {
+
+		this.command = { command: 'extension.helloWorld', title: "Open File", arguments: [this.label], };
+	}
+	
 	contextValue = 'mytreeitem';
 }
 
@@ -129,11 +131,11 @@ export function activate(context: vscode.ExtensionContext) {
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
-	const disposable = vscode.commands.registerCommand('extension.helloWorld', () => {
+	const disposable = vscode.commands.registerCommand('extension.helloWorld', (label) => {
 		// The code you place here will be executed every time your command is executed
 
 		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World!');
+		vscode.window.showInformationMessage('Hello World!' + label);
 
 		fetch('http://127.0.0.1:8080/projects').then(res => res.json()).then(
 			json => {
