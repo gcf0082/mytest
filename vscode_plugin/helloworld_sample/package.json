@@ -21,8 +21,20 @@
 			{
 				"command": "extension.helloWorld",
 				"title": "Hello World"
+			},
+			{
+				"command": "extension.helloWorld2",
+				"title": "Hello World2"
 			}
 		],
+		"menus":{
+			"view/item/context": [
+				{
+					"command": "extension.helloWorld",
+					"when": "view == external-callee2"
+				}
+			]
+		},
 		"viewsContainers": {
 			"activitybar": [
 				{
@@ -58,6 +70,10 @@
 		"@typescript-eslint/eslint-plugin": "^5.30.0",
 		"@typescript-eslint/parser": "^5.30.0",
 		"eslint": "^8.13.0",
-		"typescript": "^4.7.2"
+		"typescript": "^4.7.2",
+		"@types/node-fetch": "~2.5.2"
+	},
+	"dependencies": {
+		"node-fetch": "~2.6.7"
 	}
 }
